@@ -1,0 +1,9 @@
+[build]
+  base = "HOSPIOSKK/Frontend/hospiosk-main"
+  command = "npm install && npm run build"
+  publish = "HOSPIOSKK/Frontend/hospiosk-main/dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
