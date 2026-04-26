@@ -4,7 +4,7 @@ import { Card } from '../components/ui/card';
 import { toast } from '../hooks/use-toast';
 import { Smartphone, QrCode, CheckCircle, XCircle, Loader2, ArrowLeft } from 'lucide-react';
 //import paymentQrCode from "C:/Users/siyad/OneDrive/Attachments/Desktop/btech_project/HOSPIOSKK/Frontend/hospiosk-main/src/assets/payment-qr.png";
-import {paymentQrCode} from '../assets/payment-qr.png';
+import paymentQrCode from '../assets/payment-qr.png';
 const BASE_URL = (import.meta as any).env.VITE_API_BASE_URL;
 interface RazorpayPaymentProps {
   amount: number;
