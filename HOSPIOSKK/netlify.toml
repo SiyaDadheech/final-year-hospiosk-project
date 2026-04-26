@@ -1,7 +1,6 @@
 [build]
-  base = "HOSPIOSKK/Frontend/hospiosk-main"
-  command = "npm install && npm run build"
-  publish = "HOSPIOSKK/Frontend/hospiosk-main/dist"
+  publish = "dist"
+  command = "npm ci && chmod +x node_modules/.bin/vite && npm run build"
 
 [[redirects]]
   from = "/*"
