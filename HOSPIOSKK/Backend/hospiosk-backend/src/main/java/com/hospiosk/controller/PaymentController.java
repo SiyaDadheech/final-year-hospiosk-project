@@ -11,7 +11,7 @@ import com.razorpay.Order;
 
 @RestController
 @RequestMapping("/payment")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class PaymentController {
 
     @Autowired
