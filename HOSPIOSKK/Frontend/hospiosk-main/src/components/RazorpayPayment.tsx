@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { toast } from '@/hooks/use-toast';
+import { Button } from '../components/ui/button';
+import { Card } from '../components/ui/card';
+import { toast } from '../hooks/use-toast';
 import { Smartphone, QrCode, CheckCircle, XCircle, Loader2, ArrowLeft } from 'lucide-react';
-import paymentQrCode from '@/assets/payment-qr.png';
-
+//import paymentQrCode from "C:/Users/siyad/OneDrive/Attachments/Desktop/btech_project/HOSPIOSKK/Frontend/hospiosk-main/src/assets/payment-qr.png";
+import {paymentQrCode} from '../assets/payment-qr.png';
+const BASE_URL = (import.meta as any).env.VITE_API_BASE_URL;
 interface RazorpayPaymentProps {
   amount: number;
   language?: string;
@@ -316,7 +317,8 @@ const RazorpayPayment: React.FC<RazorpayPaymentProps> = ({
     setIsProcessing(true);
 
     // ⭐ STEP 1 → Backend se order create
-    const res = await fetch("http://localhost:8080/payment/create-order", {
+    //const res = await fetch("http://localhost:8080/payment/create-order", {
+    const res = await fetch(`${BASE_URL}/payment/create-order`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -399,7 +401,8 @@ const handlePaymentConfirmation = async () => {
       throw new Error("Patient or Appointment data missing");
     }
 
-    const response = await fetch("http://localhost:8080/appointments/book", {
+    //const response = await fetch("http://localhost:8080/appointments/book", {
+    const response = await fetch(`${BASE_URL}/appointments/book`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

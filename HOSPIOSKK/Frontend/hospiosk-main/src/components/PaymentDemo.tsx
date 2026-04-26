@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { CreditCard, Shield, CheckCircle, AlertCircle } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+const BASE_URL = (import.meta as any).env.VITE_API_BASE_URL;
 
 interface PaymentDemoProps {
   appointmentFee: number;
@@ -44,7 +45,7 @@ const PaymentDemo = ({ appointmentFee, onPaymentSuccess, onPaymentCancel }: Paym
           throw new Error("Patient or Appointment data missing");
         }
 
-        const response = await fetch("http://localhost:8080/appointments/book", {
+        const response = await fetch(`${BASE_URL}/appointments/book`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -94,7 +95,6 @@ const PaymentDemo = ({ appointmentFee, onPaymentSuccess, onPaymentCancel }: Paym
           <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
           <h3 className="text-2xl font-bold text-green-800 mb-2">Payment Successful!</h3>
           <p className="text-gray-600 mb-4">₹{appointmentFee} received successfully</p>
-          <p className="text-sm text-gray-500">Redirecting...</p>
         </CardContent>
       </Card>
     );
@@ -114,7 +114,6 @@ const PaymentDemo = ({ appointmentFee, onPaymentSuccess, onPaymentCancel }: Paym
           <Button variant="outline" onClick={onPaymentCancel} className="w-full mt-2">
             Cancel
           </Button>
-
         </CardContent>
       </Card>
     );
@@ -143,7 +142,6 @@ const PaymentDemo = ({ appointmentFee, onPaymentSuccess, onPaymentCancel }: Paym
         <h2 className="text-xl font-bold text-green-600">
           ₹{appointmentFee}
         </h2>
-
       </CardHeader>
 
       <CardContent className="space-y-6">
@@ -158,20 +156,12 @@ const PaymentDemo = ({ appointmentFee, onPaymentSuccess, onPaymentCancel }: Paym
         {!paymentMethod && (
           <div className="grid grid-cols-2 gap-3">
 
-            <Button
-              variant="outline"
-              onClick={() => setPaymentMethod('card')}
-              className="h-20 flex flex-col gap-2"
-            >
+            <Button onClick={() => setPaymentMethod('card')} className="h-20 flex flex-col gap-2">
               <CreditCard className="w-6 h-6" />
               Card
             </Button>
 
-            <Button
-              variant="outline"
-              onClick={() => setPaymentMethod('upi')}
-              className="h-20 flex flex-col gap-2"
-            >
+            <Button onClick={() => setPaymentMethod('upi')} className="h-20 flex flex-col gap-2">
               UPI
             </Button>
 
@@ -180,29 +170,11 @@ const PaymentDemo = ({ appointmentFee, onPaymentSuccess, onPaymentCancel }: Paym
 
         {paymentMethod === 'card' && (
           <>
-            <Input
-              placeholder="Card Number"
-              value={cardNumber}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCardNumber(e.target.value)}
-            />
+            <Input placeholder="Card Number" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} />
+            <Input placeholder="Expiry MM/YY" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} />
+            <Input placeholder="CVV" value={cvv} onChange={(e) => setCvv(e.target.value)} />
 
-            <Input
-              placeholder="Expiry MM/YY"
-              value={expiryDate}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExpiryDate(e.target.value)}
-            />
-
-            <Input
-              placeholder="CVV"
-              value={cvv}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCvv(e.target.value)}
-            />
-
-            <Button
-              onClick={handlePayment}
-              disabled={!cardNumber || !expiryDate || !cvv}
-              className="w-full bg-green-600"
-            >
+            <Button onClick={handlePayment} className="w-full bg-green-600">
               Pay ₹{appointmentFee}
             </Button>
           </>
@@ -210,17 +182,9 @@ const PaymentDemo = ({ appointmentFee, onPaymentSuccess, onPaymentCancel }: Paym
 
         {paymentMethod === 'upi' && (
           <>
-            <Input
-              placeholder="UPI ID"
-              value={upiId}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUpiId(e.target.value)}
-            />
+            <Input placeholder="UPI ID" value={upiId} onChange={(e) => setUpiId(e.target.value)} />
 
-            <Button
-              onClick={handlePayment}
-              disabled={!upiId}
-              className="w-full bg-green-600"
-            >
+            <Button onClick={handlePayment} className="w-full bg-green-600">
               Pay ₹{appointmentFee}
             </Button>
           </>
