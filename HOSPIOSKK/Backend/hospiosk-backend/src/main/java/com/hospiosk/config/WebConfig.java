@@ -17,7 +17,7 @@ public class WebConfig {
             public void addCorsMappings(CorsRegistry registry) {
 
                 registry.addMapping("/**")
-                        .allowedOrigins("*")
+                        .allowedOrigins("https://meek-speculoos-3e16bd.netlify.app")
                         .allowedMethods("*")
                         .allowedHeaders("*");
             }
